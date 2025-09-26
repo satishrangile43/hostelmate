@@ -1,7 +1,9 @@
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'application_form_screen.dart'; // Application Form स्क्रीन को इम्पोर्ट करें
+import 'application_form_screen.dart';
+import 'student_profile_screen.dart';
 
 class VerifyOtpScreen extends StatefulWidget {
   final String verificationId;
@@ -16,7 +18,15 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
 
-  // OTP को वेरिफाई करने का फ़ंक्शन
+  // Placeholder function to check if user is new
+  Future<bool> _checkIfUserIsNew(User user) async {
+    // In a real app, you'd check your database (e.g., Firestore)
+    // to see if a document for this user's UID already exists.
+    // For this example, we'll simulate it.
+    // Let's assume new users have no display name.
+    return user.displayName == null; 
+  }
+
   Future<void> _verifyOtp() async {
     if (!_formKey.currentState!.validate()) {
       return;
@@ -26,22 +36,28 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
     });
 
     try {
-      // Firebase से क्रेडेंशियल बनाएँ
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: widget.verificationId,
         smsCode: _otpController.text.trim(),
       );
 
-      // उपयोगकर्ता को साइन इन करें
-      await FirebaseAuth.instance.signInWithCredential(credential);
+      final userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+      final user = userCredential.user;
 
-      // सफल होने पर Application Form स्क्रीन पर नेविगेट करें
-      if (mounted) {
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const ApplicationFormScreen()),
-          (route) => false,
-        );
+      if (mounted && user != null) {
+        final isNewUser = await _checkIfUserIsNew(user);
+
+        if (isNewUser) {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const ApplicationFormScreen()),
+          );
+        } else {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const StudentProfileScreen()),
+          );
+        }
       }
+
     } on FirebaseAuthException catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -135,7 +151,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     padding: const EdgeInsets.symmetric(vertical: 16),
                   ),
-                  onPressed: _isLoading ? null : _verifyOtp, // यहाँ फ़ंक्शन को कॉल करें
+                  onPressed: _isLoading ? null : _verifyOtp,
                   child: _isLoading
                       ? const SizedBox(
                           height: 24,
@@ -155,4 +171,3 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
     );
   }
 }
-

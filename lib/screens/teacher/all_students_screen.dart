@@ -1,5 +1,5 @@
+
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AllStudentsScreen extends StatelessWidget {
   const AllStudentsScreen({super.key});
@@ -8,11 +8,10 @@ class AllStudentsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('All Students', style: GoogleFonts.orbitron(fontWeight: FontWeight.bold)),
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        title: const Text('All Students'),
       ),
       body: const Center(
-        child: Text('All Students Screen'),
+        child: Text('A list of all approved students will be shown here.'),
       ),
     );
   }

@@ -1,5 +1,5 @@
+
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class RoomManagementScreen extends StatelessWidget {
   const RoomManagementScreen({super.key});
@@ -8,11 +8,10 @@ class RoomManagementScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Room Management', style: GoogleFonts.orbitron(fontWeight: FontWeight.bold)),
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        title: const Text('Room Management'),
       ),
       body: const Center(
-        child: Text('Room Management Screen'),
+        child: Text('A grid of all rooms will be shown here.'),
       ),
     );
   }

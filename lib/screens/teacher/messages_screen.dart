@@ -1,5 +1,5 @@
+
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class MessagesScreen extends StatelessWidget {
   const MessagesScreen({super.key});
@@ -8,11 +8,10 @@ class MessagesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Messages', style: GoogleFonts.orbitron(fontWeight: FontWeight.bold)),
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        title: const Text('Send a Message'),
       ),
       body: const Center(
-        child: Text('Messages Screen'),
+        child: Text('A broadcast message can be sent from here.'),
       ),
     );
   }

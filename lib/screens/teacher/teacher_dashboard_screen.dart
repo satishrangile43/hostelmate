@@ -1,78 +1,38 @@
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'login_screen.dart';
-import 'student_application_detail_screen.dart'; // Detail screen import
+import 'student_application_detail_screen.dart';
+import 'all_students_screen.dart';
+import 'room_management_screen.dart';
+import 'messages_screen.dart';
+import 'form_settings_screen.dart';
 
-class TeacherDashboardScreen extends StatefulWidget {
+class TeacherDashboardScreen extends StatelessWidget {
   const TeacherDashboardScreen({super.key});
 
   @override
-  State<TeacherDashboardScreen> createState() => _TeacherDashboardScreenState();
-}
-
-class _TeacherDashboardScreenState extends State<TeacherDashboardScreen>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 3, vsync: this);
-  }
-
-  Future<void> _signOut() async {
-    await FirebaseAuth.instance.signOut();
-    if (mounted) {
-      Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => const TeacherLoginScreen()),
-        (route) => false,
-      );
-    }
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Teacher Dashboard', style: GoogleFonts.orbitron(fontWeight: FontWeight.bold)),
-        backgroundColor: theme.colorScheme.surface,
-        bottom: TabBar(
-          controller: _tabController,
-          indicatorColor: theme.colorScheme.primary,
-          labelColor: theme.colorScheme.primary,
-          unselectedLabelColor: Colors.grey[400],
-          tabs: const [
-            Tab(text: 'Pending Review'),
-            Tab(text: 'Requires Refill'),
-            Tab(text: 'Approved'),
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Teacher Dashboard', style: GoogleFonts.orbitron()),
+          bottom: const TabBar(
+            tabs: [
+              Tab(text: 'Pending Review'),
+              Tab(text: 'Requires Refill'),
+              Tab(text: 'Approved'),
+            ],
+          ),
+        ),
+        drawer: _buildDrawer(context),
+        body: TabBarView(
+          children: [
+            _buildStudentList(context, 'Pending'),
+            _buildStudentList(context, 'Refill'),
+            _buildStudentList(context, 'Approved'),
           ],
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: _signOut,
-            tooltip: 'Sign Out',
-          ),
-        ],
-      ),
-      drawer: _buildDrawer(context),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          _buildApplicationList(context, 'pending'),
-          _buildApplicationList(context, 'requires_refill'),
-          _buildApplicationList(context, 'approved'),
-        ],
       ),
     );
   }
@@ -81,44 +41,47 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen>
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
-        children: [
+        children: <Widget>[
           DrawerHeader(
-            decoration: BoxDecoration(color: Theme.of(context).colorScheme.primary),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.secondary,
+            ),
             child: Text(
-              'HostelMate Menu',
-              style: GoogleFonts.orbitron(
-                color: Colors.black,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+              'Teacher Menu',
+              style: GoogleFonts.orbitron(fontSize: 24, color: Colors.black, fontWeight: FontWeight.bold),
             ),
           ),
           ListTile(
             leading: const Icon(Icons.people),
             title: const Text('All Students'),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.pop(context); // Close the drawer
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const AllStudentsScreen()));
             },
           ),
           ListTile(
-            leading: const Icon(Icons.room),
+            leading: const Icon(Icons.room_service),
             title: const Text('Room Management'),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.pop(context); // Close the drawer
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const RoomManagementScreen()));
             },
           ),
           ListTile(
             leading: const Icon(Icons.message),
-            title: const Text('Messages'),
+            title: const Text('Send a Message'),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.pop(context); // Close the drawer
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const MessagesScreen()));
             },
           ),
+          const Divider(),
           ListTile(
             leading: const Icon(Icons.settings),
             title: const Text('Form Settings'),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.pop(context); // Close the drawer
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const FormSettingsScreen()));
             },
           ),
         ],
@@ -126,62 +89,36 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen>
     );
   }
 
-  Widget _buildApplicationList(BuildContext context, String status) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance
-          .collection('applications')
-          .where('status', isEqualTo: status)
-          .snapshots(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-          return Center(
-            child: Text(
-              'No applications in this category.',
-              style: GoogleFonts.exo2(color: Colors.grey[400]),
-            ),
-          );
-        }
+  Widget _buildStudentList(BuildContext context, String status) {
+    // Dummy data
+    final students = [
+      {'name': 'John Doe', 'status': 'Pending'},
+      {'name': 'Jane Smith', 'status': 'Pending'},
+      {'name': 'Peter Jones', 'status': 'Refill'},
+      {'name': 'Mary Williams', 'status': 'Approved'},
+    ];
 
-        final applications = snapshot.data!.docs;
+    final filteredStudents = students.where((s) => s['status'] == status).toList();
 
-        return ListView.builder(
-          itemCount: applications.length,
-          itemBuilder: (context, index) {
-            final appData = applications[index].data() as Map<String, dynamic>;
-            final studentName = appData['studentName'] ?? 'No Name';
-
-            return Card(
-              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              color: Colors.grey.shade800.withAlpha(150),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-                side: BorderSide(color: Colors.grey.shade700),
-              ),
-              child: ListTile(
-                title: Text(studentName, style: GoogleFonts.exo2(fontWeight: FontWeight.bold)),
-                subtitle: Text('ID: ${applications[index].id.substring(0, 6)}...'),
-                trailing: ElevatedButton(
-                  child: const Text('View'),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => StudentApplicationDetailScreen(
-                          studentName: studentName,
-                        ),
-                      ),
-                    );
-                  },
+    return ListView.builder(
+      itemCount: filteredStudents.length,
+      itemBuilder: (context, index) {
+        final student = filteredStudents[index];
+        return ListTile(
+          title: Text(student['name']!),
+          trailing: ElevatedButton(
+            child: const Text('View'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const StudentApplicationDetailScreen(),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         );
       },
     );
   }
 }
-
