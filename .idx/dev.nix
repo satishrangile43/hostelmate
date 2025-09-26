@@ -4,6 +4,7 @@
     pkgs.jdk17
     pkgs.unzip
     pkgs.flutter
+    pkgs.google-chrome
   ];
   idx.extensions = [
     

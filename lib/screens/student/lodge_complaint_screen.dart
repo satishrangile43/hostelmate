@@ -12,7 +12,7 @@ class LodgeComplaintScreen extends StatefulWidget {
 class _LodgeComplaintScreenState extends State<LodgeComplaintScreen> {
   final _formKey = GlobalKey<FormState>();
   final _descriptionController = TextEditingController();
-  String? _category;
+  String? _selectedCategory;
 
   @override
   void dispose() {
@@ -37,7 +37,11 @@ class _LodgeComplaintScreenState extends State<LodgeComplaintScreen> {
               _buildDropdown(
                 label: 'Category',
                 items: ['Maintenance', 'Cleaning', 'Security', 'Other'],
-                onChanged: (value) => setState(() => _category = value),
+                onChanged: (value) {
+                  setState(() {
+                    _selectedCategory = value;
+                  });
+                },
               ),
               const SizedBox(height: 16),
               _buildTextField(
@@ -58,6 +62,8 @@ class _LodgeComplaintScreenState extends State<LodgeComplaintScreen> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     // Submit complaint logic
+                    // You can now use the _selectedCategory and _descriptionController.text
+                    // to submit the complaint.
                     Navigator.pop(context);
                   }
                 },
@@ -86,6 +92,7 @@ class _LodgeComplaintScreenState extends State<LodgeComplaintScreen> {
         labelText: label,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
       ),
+      value: _selectedCategory,
       items: items.map((String value) {
         return DropdownMenuItem<String>(
           value: value,

@@ -24,7 +24,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
     // to see if a document for this user's UID already exists.
     // For this example, we'll simulate it.
     // Let's assume new users have no display name.
-    return user.displayName == null; 
+    return user.displayName == null;
   }
 
   Future<void> _verifyOtp() async {
@@ -44,20 +44,21 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
       final userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
       final user = userCredential.user;
 
-      if (mounted && user != null) {
-        final isNewUser = await _checkIfUserIsNew(user);
+      if (!mounted || user == null) return;
 
-        if (isNewUser) {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const ApplicationFormScreen()),
-          );
-        } else {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const StudentProfileScreen()),
-          );
-        }
+      final isNewUser = await _checkIfUserIsNew(user);
+
+      if (!mounted) return;
+
+      if (isNewUser) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const ApplicationFormScreen()),
+        );
+      } else {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const StudentProfileScreen()),
+        );
       }
-
     } on FirebaseAuthException catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(

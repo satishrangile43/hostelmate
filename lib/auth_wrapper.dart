@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hostelmate/screens/student/application_form_screen.dart';
 import 'package:hostelmate/screens/student/student_profile_screen.dart';
 import 'package:hostelmate/screens/teacher/teacher_dashboard_screen.dart';
-import 'main.dart';
+import 'home_screen.dart';
 
 class AuthWrapper extends StatelessWidget {
   const AuthWrapper({super.key});
@@ -46,11 +46,11 @@ class AuthWrapper extends StatelessWidget {
               },
             );
           }
-          // If the provider is unknown or user doc doesn't exist, send to the home page.
-          return const HomePage();
+          // If the provider is unknown or user doc doesn't exist, send to the home screen.
+          return const HomeScreen();
         } else {
-          // If the user is not logged in, show the home page.
-          return const HomePage();
+          // If the user is not logged in, show the home screen.
+          return const HomeScreen();
         }
       },
     );

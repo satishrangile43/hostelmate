@@ -14,9 +14,9 @@ class _FormSettingsScreenState extends State<FormSettingsScreen> {
   final _startDateController = TextEditingController();
   final _endDateController = TextEditingController();
 
-  List<String> _universities = ['University A', 'University B'];
-  List<String> _hostels = ['Hostel 1', 'Hostel 2'];
-  List<String> _rules = ['Rule one...', 'Rule two...', 'Rule three...'];
+  final List<String> _universities = ['University A', 'University B'];
+  final List<String> _hostels = ['Hostel 1', 'Hostel 2'];
+  final List<String> _rules = ['Rule one...', 'Rule two...', 'Rule three...'];
 
   @override
   void dispose() {
