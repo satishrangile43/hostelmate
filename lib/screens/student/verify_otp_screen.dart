@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'application_form_screen.dart';
 import 'student_profile_screen.dart';
 
@@ -18,13 +18,10 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
 
-  // Placeholder function to check if user is new
+  // Function to check if user is new
   Future<bool> _checkIfUserIsNew(User user) async {
-    // In a real app, you'd check your database (e.g., Firestore)
-    // to see if a document for this user's UID already exists.
-    // For this example, we'll simulate it.
-    // Let's assume new users have no display name.
-    return user.displayName == null;
+    final doc = await FirebaseFirestore.instance.collection('students').doc(user.uid).get();
+    return !doc.exists;
   }
 
   Future<void> _verifyOtp() async {

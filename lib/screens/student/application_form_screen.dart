@@ -1,196 +1,158 @@
-
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
-class ApplicationFormScreen extends StatefulWidget {
+import '../../providers/application_form_provider.dart';
+import '../../common/widgets/form_fields.dart';
+
+class ApplicationFormScreen extends StatelessWidget {
   const ApplicationFormScreen({super.key});
 
   @override
-  State<ApplicationFormScreen> createState() => _ApplicationFormScreenState();
-}
-
-class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
-  final _formKey = GlobalKey<FormState>();
-  bool _rulesConfirmed = false;
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Hostel Application Form', style: GoogleFonts.orbitron()),
-        backgroundColor: Theme.of(context).colorScheme.surface,
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildSectionTitle('Hostel Selection'),
-              _buildDropdown('University', ['University A', 'University B']),
-              _buildDropdown('Hostel', ['Hostel 1', 'Hostel 2']),
-              const SizedBox(height: 24),
-
-              _buildSectionTitle('Student Information'),
-              _buildTextField(label: 'Student\'s Name'),
-              _buildTextField(label: 'Father\'s/Guardian\'s Name'),
-              _buildTextField(label: 'Class / Semester'),
-              _buildTextField(label: 'Caste / Category'),
-              _buildDatePicker(label: 'Date of Birth'),
-              _buildTextField(label: 'Blood Group'),
-              _buildTextField(label: 'Mobile Number (Student)', keyboardType: TextInputType.phone),
-              _buildTextField(label: 'Mobile Number (Guardian)', keyboardType: TextInputType.phone),
-              _buildTextField(label: 'Permanent Address', maxLines: 3),
-              const SizedBox(height: 24),
-
-              _buildSectionTitle('Local Guardian'),
-              _buildTextField(label: 'Local Guardian\'s Name'),
-              _buildTextField(label: 'Local Guardian\'s Address', maxLines: 3),
-              const SizedBox(height: 24),
-
-              _buildSectionTitle('Document Checklist'),
-              _buildFileUpload('College Admission Receipt'),
-              _buildFileUpload('Aadhaar Card Copy'),
-              _buildFileUpload('Passport Size Photo'),
-              const SizedBox(height: 24),
-
-              _buildSectionTitle('Hostel Rules'),
-              Container(
-                height: 150,
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey.shade700),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: const SingleChildScrollView(
-                  child: Text(
-                    '1. Rule one...\n2. Rule two...\n3. Rule three...\n(Full list of rules here)',
-                    style: TextStyle(fontSize: 14),
-                  ),
+    return ChangeNotifierProvider(
+      create: (context) =>
+          ApplicationFormProvider(Provider.of(context, listen: false)),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Hostel Application Form'),
+          backgroundColor: Theme.of(context).colorScheme.surface,
+        ),
+        body: Consumer<ApplicationFormProvider>(
+          builder: (context, provider, child) {
+            return SingleChildScrollView(
+              padding: const EdgeInsets.all(24.0),
+              child: Form(
+                key: provider.formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    buildSectionTitle('Hostel Selection'),
+                    buildDropdown(
+                        label: 'University',
+                        items: ['University A', 'University B'],
+                        controller: provider.universityController),
+                    buildDropdown(
+                        label: 'Hostel',
+                        items: ['Hostel 1', 'Hostel 2'],
+                        controller: provider.hostelController),
+                    const SizedBox(height: 24),
+                    buildSectionTitle('Student Information'),
+                    buildTextField(
+                        label: 'Student\'s Name',
+                        controller: provider.studentNameController),
+                    buildTextField(
+                        label: 'Father\'s/Guardian\'s Name',
+                        controller: provider.fatherNameController),
+                    buildTextField(
+                        label: 'Class / Semester',
+                        controller: provider.classNameController),
+                    buildTextField(
+                        label: 'Caste / Category',
+                        controller: provider.casteController),
+                    buildDatePicker(
+                      context: context,
+                      label: 'Date of Birth',
+                      selectedDate: provider.dateOfBirth,
+                      onDateSelected: provider.setDateOfBirth,
+                    ),
+                    buildTextField(
+                        label: 'Blood Group',
+                        controller: provider.bloodGroupController),
+                    buildTextField(
+                        label: 'Mobile Number (Student)',
+                        controller: provider.studentMobileController,
+                        keyboardType: TextInputType.phone),
+                    buildTextField(
+                        label: 'Mobile Number (Guardian)',
+                        controller: provider.guardianMobileController,
+                        keyboardType: TextInputType.phone),
+                    buildTextField(
+                        label: 'Permanent Address',
+                        controller: provider.permanentAddressController,
+                        maxLines: 3),
+                    const SizedBox(height: 24),
+                    buildSectionTitle('Local Guardian'),
+                    buildTextField(
+                        label: 'Local Guardian\'s Name',
+                        controller: provider.localGuardianNameController),
+                    buildTextField(
+                        label: 'Local Guardian\'s Address',
+                        controller: provider.localGuardianAddressController,
+                        maxLines: 3),
+                    const SizedBox(height: 24),
+                    buildSectionTitle('Document Checklist'),
+                    buildFileUpload(
+                      context: context,
+                      label: 'College Admission Receipt',
+                      file: provider.admissionReceipt,
+                      onPicked: provider.setAdmissionReceipt,
+                    ),
+                    buildFileUpload(
+                      context: context,
+                      label: 'Aadhaar Card Copy',
+                      file: provider.aadhaarCard,
+                      onPicked: provider.setAadhaarCard,
+                    ),
+                    buildFileUpload(
+                      context: context,
+                      label: 'Passport Size Photo',
+                      file: provider.photo,
+                      onPicked: provider.setPhoto,
+                    ),
+                    const SizedBox(height: 24),
+                    buildSectionTitle('Hostel Rules'),
+                    Container(
+                      height: 150,
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey.shade700),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const SingleChildScrollView(
+                        child: Text(
+                          '1. Rule one...\n2. Rule two...\n3. Rule three...\n(Full list of rules here)',
+                          style: TextStyle(fontSize: 14),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    CheckboxListTile(
+                      title: const Text(
+                          'I confirm that I have read and understood all the rules...'),
+                      value: provider.rulesConfirmed,
+                      onChanged: (bool? value) {
+                        provider.setRulesConfirmed(value ?? false);
+                      },
+                      controlAffinity: ListTileControlAffinity.leading,
+                      activeColor: Theme.of(context).colorScheme.primary,
+                    ),
+                    const SizedBox(height: 30),
+                    Center(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.primary,
+                          foregroundColor: Colors.black,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12)),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 16, horizontal: 48),
+                        ),
+                        onPressed: provider.isLoading ? null : provider.submitForm,
+                        child: provider.isLoading
+                            ? const CircularProgressIndicator()
+                            : const Text('Submit Application',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold)),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 12),
-              CheckboxListTile(
-                title: const Text('I confirm that I have read and understood all the rules...'),
-                value: _rulesConfirmed,
-                onChanged: (bool? value) {
-                  setState(() {
-                    _rulesConfirmed = value ?? false;
-                  });
-                },
-                controlAffinity: ListTileControlAffinity.leading,
-                activeColor: Theme.of(context).colorScheme.primary,
-              ),
-              const SizedBox(height: 30),
-
-              Center(
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                    foregroundColor: Colors.black,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                    padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 48),
-                  ),
-                  onPressed: () {
-                    if (_formKey.currentState!.validate() && _rulesConfirmed) {
-                      // Submit application logic
-                    }
-                  },
-                  child: const Text('Submit Application', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                ),
-              ),
-            ],
-          ),
+            );
+          },
         ),
-      ),
-    );
-  }
-
-  Widget _buildSectionTitle(String title) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
-      child: Text(
-        title,
-        style: GoogleFonts.orbitron(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
-      ),
-    );
-  }
-
-  Widget _buildTextField({required String label, int maxLines = 1, TextInputType? keyboardType}) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
-      child: TextFormField(
-        maxLines: maxLines,
-        keyboardType: keyboardType,
-        decoration: InputDecoration(
-          labelText: label,
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-        ),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return 'Please enter $label';
-          }
-          return null;
-        },
-      ),
-    );
-  }
-
-  Widget _buildDatePicker({required String label}) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
-      child: TextFormField(
-        decoration: InputDecoration(
-          labelText: label,
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-          suffixIcon: const Icon(Icons.calendar_today),
-        ),
-        readOnly: true,
-        onTap: () async {
-          // Date picker logic
-          await showDatePicker(
-            context: context,
-            initialDate: DateTime.now(),
-            firstDate: DateTime(1980),
-            lastDate: DateTime.now(),
-          );
-        },
-      ),
-    );
-  }
-
-  Widget _buildDropdown(String label, List<String> items) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
-      child: DropdownButtonFormField<String>(
-        decoration: InputDecoration(
-          labelText: label,
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-        ),
-        items: items.map((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
-          );
-        }).toList(),
-        onChanged: (_) {},
-      ),
-    );
-  }
-
-  Widget _buildFileUpload(String label) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
-      child: Row(
-        children: [
-          Expanded(child: Text(label, style: const TextStyle(fontSize: 16))),
-          ElevatedButton.icon(
-            onPressed: () { /* File upload logic */ },
-            icon: const Icon(Icons.upload_file),
-            label: const Text('Upload'),
-          ),
-        ],
       ),
     );
   }

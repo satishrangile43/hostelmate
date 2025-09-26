@@ -15,7 +15,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
 
-  // OTP भेजने का फ़ंक्शन
+  // Function to send OTP
   Future<void> _sendOtp() async {
     if (!_formKey.currentState!.validate()) {
       return;
@@ -28,7 +28,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
       await FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: '+91${_phoneController.text.trim()}',
         verificationCompleted: (PhoneAuthCredential credential) {
-          // यह कॉलबैक स्वचालित रूप से साइन इन करने का प्रयास करेगा
+          // This callback will attempt to auto-sign-in
         },
         verificationFailed: (FirebaseAuthException e) {
           if (mounted) {
@@ -38,7 +38,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
           }
         },
         codeSent: (String verificationId, int? resendToken) {
-          // कोड सफलतापूर्वक भेज दिया गया है, अब OTP स्क्रीन पर जाएँ
+          // Code has been sent successfully, now navigate to the OTP screen
           if (mounted) {
             Navigator.of(context).push(
               MaterialPageRoute(
@@ -48,7 +48,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
           }
         },
         codeAutoRetrievalTimeout: (String verificationId) {
-          // टाइमआउट होने पर क्या करना है
+          // What to do on timeout
         },
       );
     } catch (e) {
@@ -163,4 +163,3 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
     );
   }
 }
-
