@@ -1,0 +1,67 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+/build/
+
+# Android related
+**/android/**/gradle-wrapper.jar
+**/android/.gradle
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/key.properties
+**/android/app/src/main/assets/flutter_assets/
+*.iml
+
+# iOS related
+**/ios/**/*.h
+**/ios/**/*.m
+**/ios/Flutter/App.framework
+**/ios/Flutter/engine
+**/ios/Flutter/flutter_assets/
+**/ios/Runner/GeneratedPluginRegistrant.*
+**/ios/Runner.xcodeproj/project.xcworkspace/
+**/ios/Runner.xcodeproj/xcshareddata/
+**/ios/Runner.xcworkspace/contents.xcworkspacedata
+**/ios/Pods/
+**/ios/Podfile.lock
+**/ios/.symlinks/
+**/ios/Flutter/ephemeral/
+
+# Windows related
+**/windows/flutter/ephemeral/
+**/windows/flutter/ephemeral.generated/
+**/windows/runner/Debug/
+**/windows/runner/Profile/
+**/windows/runner/Release/
+**/windows/runner/GeneratedPluginRegistrant.h
+**/windows/runner/GeneratedPluginRegistrant.cc
+**/windows/runner/flutter_window.h
+**/windows/runner/flutter_window.cpp
+**/windows/runner/main.cpp
+**/windows/runner/utils.h
+**/windows/runner/utils.cpp
+**/windows/runner/win32_window.h
+**/windows/runner/win32_window.cpp
+
+# IDE related
+.idea/
+*.project
+*.vscode/

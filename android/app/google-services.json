@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "591172655321",
+    "project_id": "hostelmate-e15a4",
+    "storage_bucket": "hostelmate-e15a4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:591172655321:android:aeca610a42d393a5c1c6c8",
+        "android_client_info": {
+          "package_name": "com.example.hotelmate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBF66iCnly_jA5xVMmExbyiK4ON4pYqECE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:591172655321:android:501c7e8beabfe067c1c6c8",
+        "android_client_info": {
+          "package_name": "com.satish.hostelmate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBF66iCnly_jA5xVMmExbyiK4ON4pYqECE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
