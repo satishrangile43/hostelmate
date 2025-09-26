@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'home_screen.dart';
@@ -22,16 +21,14 @@ class HostelMateApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.dark,
-        scaffoldBackgroundColor: const Color(0xFF09090b), 
-        primaryColor: const Color(0xFF8b5cf6), 
+        scaffoldBackgroundColor: const Color(0xFF09090b),
+        primaryColor: const Color(0xFF8b5cf6),
         colorScheme: const ColorScheme.dark(
           primary: Color(0xFF8b5cf6),
-          secondary: Color(0xFF00ffff), 
-          surface: Color(0xFF1a1a1a), 
+          secondary: Color(0xFF00ffff),
+          surface: Color(0xFF1a1a1a),
         ),
-        textTheme: GoogleFonts.exo2TextTheme(
-          ThemeData.dark().textTheme,
-        ),
+        fontFamily: 'Exo2',
       ),
       home: const HomeScreen(),
     );

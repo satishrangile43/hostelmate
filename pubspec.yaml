@@ -1,6 +1,6 @@
 name: hostelmate
 description: "A new Flutter project."
-publish_to: 'none' 
+publish_to: 'none'
 version: 1.0.0+1
 
 environment:
@@ -11,18 +11,16 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.6
-  google_fonts: ^6.2.1
-  
+
   # Updated Firebase dependencies to the latest stable versions
   firebase_core: ^2.27.0
   firebase_auth: ^4.17.9
   cloud_firestore: ^4.15.9
   firebase_storage: ^11.6.10
-  
+
   intl: ^0.18.1
   provider: ^6.1.2
   image_picker: ^1.1.0
-
 
 dev_dependencies:
   flutter_test:

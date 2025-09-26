@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'lodge_complaint_screen.dart';
 
 class StudentProfileScreen extends StatelessWidget {
@@ -15,7 +14,7 @@ class StudentProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Profile', style: GoogleFonts.orbitron()),
+        title: const Text('My Profile'),
         backgroundColor: Theme.of(context).colorScheme.surface,
       ),
       body: SingleChildScrollView(
@@ -53,7 +52,7 @@ class StudentProfileScreen extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(studentName, style: GoogleFonts.orbitron(fontSize: 24, fontWeight: FontWeight.bold)),
+            Text(studentName, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
             const SizedBox(height: 4),
             Text('Student', style: TextStyle(fontSize: 16, color: Colors.grey[400])),
           ],
@@ -136,7 +135,7 @@ class StudentProfileScreen extends StatelessWidget {
   Widget _buildSectionTitle(String title) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0),
-      child: Text(title, style: GoogleFonts.orbitron(fontSize: 20, fontWeight: FontWeight.bold)),
+      child: Text(title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
     );
   }
 

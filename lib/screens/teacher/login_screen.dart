@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'teacher_dashboard_screen.dart'; // Assuming you have this screen
 
@@ -65,7 +64,7 @@ class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final headlineStyle = GoogleFonts.orbitron(
+    const headlineStyle = TextStyle(
       fontSize: 28,
       fontWeight: FontWeight.bold,
       color: Colors.white,
@@ -89,7 +88,7 @@ class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
+                const Text(
                   'Teacher Login',
                   textAlign: TextAlign.center,
                   style: headlineStyle,
@@ -98,7 +97,7 @@ class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
                 Text(
                   'Sign in with your email and password.',
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.exo2(fontSize: 16, color: Colors.grey[400]),
+                  style: TextStyle(fontSize: 16, color: Colors.grey[400]),
                 ),
                 const SizedBox(height: 40),
                 TextFormField(

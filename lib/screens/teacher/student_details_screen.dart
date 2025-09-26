@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class StudentDetailsScreen extends StatelessWidget {
   final String studentId;
@@ -9,7 +8,7 @@ class StudentDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Student Details', style: GoogleFonts.orbitron(fontWeight: FontWeight.bold)),
+        title: const Text('Student Details', style: TextStyle(fontWeight: FontWeight.bold)),
         backgroundColor: Theme.of(context).colorScheme.surface,
       ),
       body: Center(

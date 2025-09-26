@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class LodgeComplaintScreen extends StatefulWidget {
   const LodgeComplaintScreen({super.key});
@@ -24,7 +23,7 @@ class _LodgeComplaintScreenState extends State<LodgeComplaintScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Lodge a Complaint', style: GoogleFonts.orbitron()),
+        title: const Text('Lodge a Complaint')
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
@@ -81,7 +80,7 @@ class _LodgeComplaintScreenState extends State<LodgeComplaintScreen> {
       padding: const EdgeInsets.only(bottom: 16.0),
       child: Text(
         title,
-        style: GoogleFonts.orbitron(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
       ),
     );
   }

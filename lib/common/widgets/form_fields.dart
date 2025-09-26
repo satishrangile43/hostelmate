@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
@@ -8,7 +7,7 @@ Widget buildSectionTitle(String title) {
     padding: const EdgeInsets.only(bottom: 16.0),
     child: Text(
       title,
-      style: GoogleFonts.orbitron(
+      style: const TextStyle(
           fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
     ),
   );

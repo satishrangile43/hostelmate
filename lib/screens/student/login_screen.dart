@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'verify_otp_screen.dart';
 
@@ -74,7 +73,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final headlineStyle = GoogleFonts.orbitron(
+    const headlineStyle = TextStyle(
       fontSize: 28,
       fontWeight: FontWeight.bold,
       color: Colors.white,
@@ -98,7 +97,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
+                const Text(
                   'Student Login',
                   textAlign: TextAlign.center,
                   style: headlineStyle,
@@ -107,7 +106,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                 Text(
                   'Enter your mobile number to receive an OTP.',
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.exo2(fontSize: 16, color: Colors.grey[400]),
+                  style: TextStyle(fontSize: 16, color: Colors.grey[400]),
                 ),
                 const SizedBox(height: 40),
                 TextFormField(

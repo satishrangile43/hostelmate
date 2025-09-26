@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'application_form_screen.dart';
@@ -79,7 +78,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final headlineStyle = GoogleFonts.orbitron(
+    const headlineStyle = TextStyle(
       fontSize: 28,
       fontWeight: FontWeight.bold,
       color: Colors.white,
@@ -103,7 +102,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
+                const Text(
                   'Verify OTP',
                   textAlign: TextAlign.center,
                   style: headlineStyle,
@@ -112,7 +111,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                 Text(
                   'Please enter the 6-digit code sent to your mobile.',
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.exo2(fontSize: 16, color: Colors.grey[400]),
+                  style: TextStyle(fontSize: 16, color: Colors.grey[400]),
                 ),
                 const SizedBox(height: 40),
                 TextFormField(

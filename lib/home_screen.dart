@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'screens/student/login_screen.dart';
 import 'screens/teacher/login_screen.dart';
 
@@ -15,9 +14,9 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'HostelMate',
-              style: GoogleFonts.orbitron(
+              style: TextStyle(
                 fontSize: 48,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
@@ -81,7 +80,7 @@ class HomeScreen extends StatelessWidget {
         children: [
           Text(
             title,
-            style: GoogleFonts.exo2(
+            style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
               color: Colors.white,

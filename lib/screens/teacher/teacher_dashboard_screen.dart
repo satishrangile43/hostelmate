@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'student_application_detail_screen.dart';
 import 'all_students_screen.dart';
 import 'room_management_screen.dart';
@@ -16,7 +15,7 @@ class TeacherDashboardScreen extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Teacher Dashboard', style: GoogleFonts.orbitron()),
+          title: const Text('Teacher Dashboard'),
           bottom: const TabBar(
             tabs: [
               Tab(text: 'Pending Review'),
@@ -46,9 +45,9 @@ class TeacherDashboardScreen extends StatelessWidget {
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.secondary,
             ),
-            child: Text(
+            child: const Text(
               'Teacher Menu',
-              style: GoogleFonts.orbitron(fontSize: 24, color: Colors.black, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 24, color: Colors.black, fontWeight: FontWeight.bold),
             ),
           ),
           ListTile(
